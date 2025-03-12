@@ -10,6 +10,8 @@ import { Progress } from "@/components/ui/progress"
 import { countryNames } from "./data/countries"
 import { useNationality } from "./hooks/useNationality"
 import { motion, AnimatePresence } from "framer-motion"
+import ReactCountryFlag from "react-country-flag"
+
 
 // Type definitions for our API response
 type CountryPrediction = {
@@ -33,15 +35,10 @@ export default function NationalityPredictor() {
     await predictNationality(name)
   }
 
-  const getCountryFlag = (countryCode: string) => {
-    // Convert country code to flag emoji
-    return countryCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
-  }
-
   return (
-    <div 
+    <div
       className="w-full h-full bg-cover bg-center bg-no-repeat min-h-screen md:bg-contain relative flex flex-col"
-      style={{ 
+      style={{
         backgroundImage: 'url("/world_map_transparent.svg")',
         backgroundPosition: 'center 30%'
       }}
@@ -80,7 +77,7 @@ export default function NationalityPredictor() {
 
                 <AnimatePresence mode="wait">
                   {results && (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0, transition: { duration: 0.2 } }}
@@ -96,7 +93,7 @@ export default function NationalityPredictor() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            transition={{ 
+                            transition={{
                               delay: index * 0.15,
                               duration: 0.5,
                               exit: { duration: 0.2 }
@@ -105,12 +102,18 @@ export default function NationalityPredictor() {
                           >
                             <div className="flex justify-between items-center text-primary-foreground">
                               <div className="flex items-center gap-2">
-                                <span className="text-2xl" aria-hidden="true">
-                                  {getCountryFlag(prediction.country_id)}
-                                </span>
+                                <ReactCountryFlag
+                                  countryCode={prediction.country_id}
+                                  svg
+                                  style={{
+                                    width: '2em',
+                                    height: '2em',
+                                  }}
+                                  title={prediction.country_id}
+                                />
                                 <span>{countryNames[prediction.country_id] || prediction.country_id}</span>
                               </div>
-                              <motion.span 
+                              <motion.span
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: index * 0.15 + 0.2 }}
@@ -138,16 +141,16 @@ export default function NationalityPredictor() {
           </Card>
         </motion.div>
       </div>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
         className="text-center py-4 relative z-10"
       >
-        <a 
-          href="https://thabo-portfolio.vercel.app" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href="https://thabo-portfolio.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-xs text-primary-foreground/60 hover:text-primary-foreground transition-colors"
         >
           Developed by Thabo Tshabalala
@@ -156,4 +159,3 @@ export default function NationalityPredictor() {
     </div>
   )
 }
-
