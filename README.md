@@ -26,4 +26,4 @@ A web application that predicts the possible nationalities of a person based on 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/nationality-predictor.git
+git clone https://github.com/Tshabalala-Thabo/nationality-predictor.git
