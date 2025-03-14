@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Loader2, Search } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { countryNames } from "./data/countries"
-import { useNationality } from "./hooks/useNationality"
+import { useNationality } from "../hooks/useNationality"
 import { motion, AnimatePresence } from "framer-motion"
 import ReactCountryFlag from "react-country-flag"
 
