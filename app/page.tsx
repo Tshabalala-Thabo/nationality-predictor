@@ -86,53 +86,63 @@ export default function NationalityPredictor() {
                       <h3 className="font-medium text-lg text-primary-foreground">
                         Nationality predictions for &quot;{results.name}&quot;
                       </h3>
-                      <div className="space-y-3">
-                        {results.country.map((prediction, index) => (
-                          <motion.div
-                            key={prediction.country_id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{
-                              delay: index * 0.15,
-                              duration: 0.5,
-                              exit: { duration: 0.2 }
-                            }}
-                            className="space-y-1"
-                          >
-                            <div className="flex justify-between items-center text-primary-foreground">
-                              <div className="flex items-center gap-2">
-                                <ReactCountryFlag
-                                  countryCode={prediction.country_id}
-                                  svg
-                                  style={{
-                                    width: '2em',
-                                    height: '2em',
-                                  }}
-                                  title={prediction.country_id}
-                                />
-                                <span>{countryNames[prediction.country_id] || prediction.country_id}</span>
-                              </div>
-                              <motion.span
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: index * 0.15 + 0.2 }}
-                                className="font-medium"
-                              >
-                                {(prediction.probability * 100).toFixed(1)}%
-                              </motion.span>
-                            </div>
+                      {results.country.length > 0 ? (
+                        <div className="space-y-3">
+                          {results.country.map((prediction, index) => (
                             <motion.div
-                              initial={{ scaleX: 0 }}
-                              animate={{ scaleX: 1 }}
-                              transition={{ delay: index * 0.15 + 0.1, duration: 0.4 }}
-                              className="origin-left"
+                              key={prediction.country_id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -10 }}
+                              transition={{
+                                delay: index * 0.15,
+                                duration: 0.5,
+                                exit: { duration: 0.2 }
+                              }}
+                              className="space-y-1"
                             >
-                              <Progress value={prediction.probability * 100} className="h-2" />
+                              <div className="flex justify-between items-center text-primary-foreground">
+                                <div className="flex items-center gap-2">
+                                  <ReactCountryFlag
+                                    countryCode={prediction.country_id}
+                                    svg
+                                    style={{
+                                      width: '2em',
+                                      height: '2em',
+                                    }}
+                                    title={prediction.country_id}
+                                  />
+                                  <span>{countryNames[prediction.country_id] || prediction.country_id}</span>
+                                </div>
+                                <motion.span
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ delay: index * 0.15 + 0.2 }}
+                                  className="font-medium"
+                                >
+                                  {(prediction.probability * 100).toFixed(1)}%
+                                </motion.span>
+                              </div>
+                              <motion.div
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                transition={{ delay: index * 0.15 + 0.1, duration: 0.4 }}
+                                className="origin-left"
+                              >
+                                <Progress value={prediction.probability * 100} className="h-2" />
+                              </motion.div>
                             </motion.div>
-                          </motion.div>
-                        ))}
-                      </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="text-center py-4 text-muted-foreground"
+                        >
+                          No nationality predictions found for this name. Try another name!
+                        </motion.div>
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
