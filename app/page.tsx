@@ -158,7 +158,7 @@ export default function NationalityPredictor() {
         className="text-center py-4 relative z-10"
       >
         <a
-          href="https://thabo-portfolio.vercel.app"
+          href="https://thabotshabalala.netlify.app"
           target="_blank"
           rel="noopener noreferrer"
           className="text-xs text-primary-foreground/60 hover:text-primary-foreground transition-colors"
