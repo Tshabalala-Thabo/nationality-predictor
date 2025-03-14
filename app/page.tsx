@@ -31,8 +31,9 @@ export default function NationalityPredictor() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name.trim()) return
-    await predictNationality(name)
+    const trimmedName = name.trim()
+    if (!trimmedName) return
+    await predictNationality(trimmedName)
   }
 
   return (
